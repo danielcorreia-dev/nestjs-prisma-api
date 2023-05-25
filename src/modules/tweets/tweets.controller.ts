@@ -11,16 +11,16 @@ import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
 import { TweetsService } from './tweets.service';
 
-@Controller('tweet')
+@Controller('')
 export class TweetsController {
   constructor(private readonly tweetsService: TweetsService) {}
 
-  @Get('')
+  @Get('tweets')
   async getTweets() {
     return this.tweetsService.getTweets();
   }
 
-  @Post('')
+  @Post('tweet')
   async createTweet(@Body() createTweetDto: CreateTweetDto) {
     const { text, userId } = createTweetDto;
 
@@ -30,7 +30,7 @@ export class TweetsController {
     });
   }
 
-  @Patch(':id')
+  @Patch('tweet/:id')
   async updateTweet(
     @Param('id') id: string,
     @Body() updateTweetDto: UpdateTweetDto,
@@ -44,7 +44,7 @@ export class TweetsController {
     });
   }
 
-  @Delete(':id')
+  @Delete('tweet/:id')
   async deleteTweet(@Param('id') id: string) {
     return this.tweetsService.deleteTweet({ id: Number(id) });
   }
