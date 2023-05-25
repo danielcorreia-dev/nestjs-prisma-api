@@ -7,20 +7,20 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { TweetsService } from 'src/modules/tweets/tweets.service';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
+import { TweetsService } from './tweets.service';
 
-@Controller('api')
-export class ApiController {
+@Controller('tweet')
+export class TweetsController {
   constructor(private readonly tweetsService: TweetsService) {}
 
-  @Get('tweets')
+  @Get('')
   async getTweets() {
     return this.tweetsService.getTweets();
   }
 
-  @Post('tweet')
+  @Post('')
   async createTweet(@Body() createTweetDto: CreateTweetDto) {
     const { text, userId } = createTweetDto;
 
@@ -30,7 +30,7 @@ export class ApiController {
     });
   }
 
-  @Patch('tweet/:id')
+  @Patch(':id')
   async updateTweet(
     @Param('id') id: string,
     @Body() updateTweetDto: UpdateTweetDto,
@@ -44,7 +44,7 @@ export class ApiController {
     });
   }
 
-  @Delete('tweet/:id')
+  @Delete(':id')
   async deleteTweet(@Param('id') id: string) {
     return this.tweetsService.deleteTweet({ id: Number(id) });
   }
